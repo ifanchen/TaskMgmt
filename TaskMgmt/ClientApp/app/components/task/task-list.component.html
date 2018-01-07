@@ -1,0 +1,41 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Tasks
+    </div>
+    <div class="panel-body">
+        <p *ngIf="!tasks"><em>Loading...</em></p>
+        
+        <div class="table-responsive" *ngIf="tasks">
+            <div>
+                <input type="checkbox" name="showOpenTask" [(ngModel)]="showOpenTasks">
+                <span>Show Open Task Only</span>
+            </div>
+            <br />
+
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>File</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of filteredTasks">
+                        <td>{{ task.id }}</td>
+                        <td>{{ task.taskName }}</td>
+                        <td>{{ task.taskStatus ? 'Closed' : 'Open' }}</td>
+                        <td>
+                            <a *ngIf="task.fileName" href="{{getDownloadUrl(task.id)}}" target="_blank">{{task.fileName}}</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" *ngIf="!task.taskStatus" (click)="closeTask(task)">Close</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
